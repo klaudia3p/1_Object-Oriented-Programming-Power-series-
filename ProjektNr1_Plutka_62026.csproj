@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EkstremumSzeregu.cs" />
     <Compile Include="KokpitPlutka.cs">
       <SubType>Form</SubType>
     </Compile>
