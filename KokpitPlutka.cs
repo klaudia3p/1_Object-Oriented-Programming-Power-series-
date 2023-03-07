@@ -54,7 +54,7 @@ namespace ProjektNr1_Plutka_62026
                 }
 
             //formularz Lab1 nie został znaleziony w openforms
-            //utworzenie egzemplarza formularza lab1
+            //utworzenie egzemplarza formularzalab1
             ProjektIndywidualnyPlutka FormProjektIndywidualnyPlutka = new ProjektIndywidualnyPlutka();
             this.Hide();
             //odsloniecie nowo utworzonego egzemplarza
