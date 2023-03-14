@@ -117,7 +117,7 @@ namespace ProjektNr1_Plutka_62026
                 Sx = (Xe_max- Xe_min)/(Xmax- Xmin);
                 Sy = (Ye_max-Ye_min)/(Ymax- Ymin);
                 Dx = Xe_min - Xmin * Sx;
-                Dy = Ye_min - Ymin * Sx;
+                Dy = Ye_min - Ymin * Sy;
             }
             //deklaracja metod udostepniajacych klase przelicznaiewpsolrzednycj
             public static int WspX(float x)
@@ -131,12 +131,54 @@ namespace ProjektNr1_Plutka_62026
         }
         private void pbRysownica_Paint(object sender, PaintEventArgs e)
         {
+            //dla bezpieczenstwa sprawdzamy czy istnieje egzemplarz tablicy TWS
+            if (TWS is null)
+                return;
+            //wyczyszczenie powiezrchni graficznej
+            Rysownica.Clear(Color.LightSkyBlue);
+            //ponowne wykreslenie obrazu
+            //wykreslenie osi y
+            Rysownica.DrawLine(PióroXY,
+                PrzeliczanieWspółrzędnych.WspX(0),
+                PrzeliczanieWspółrzędnych.WspY(PrzeliczanieWspółrzędnych.Ymin),
+
+                 PrzeliczanieWspółrzędnych.WspX(0),
+                PrzeliczanieWspółrzędnych.WspY(PrzeliczanieWspółrzędnych.Ymax));
+            //wykreslenie osi x
+            Rysownica.DrawLine(PióroXY,
+                PrzeliczanieWspółrzędnych.WspY(PrzeliczanieWspółrzędnych.Xmin),
+                 PrzeliczanieWspółrzędnych.WspY(0),
+
+                 PrzeliczanieWspółrzędnych.WspX(PrzeliczanieWspółrzędnych.Xmax),
+                 PrzeliczanieWspółrzędnych.WspY(0));
+            //wykreslenie lini toru
+            for (int j = 0; j < TWS.GetLength(0) - 1; j++)
+                Rysownica.DrawLine(PióroLiniToru,
+                    PrzeliczanieWspółrzędnych.WspX(TWS[j, 0]),
+                    PrzeliczanieWspółrzędnych.WspY(TWS[j, 1]),
+
+                    PrzeliczanieWspółrzędnych.WspX(TWS[j + 1, 0]),
+                    PrzeliczanieWspółrzędnych.WspY(TWS[j + 1, 1])
+                 );
+            //wykreslenie OA(Obiektu Animowanego)
+            Rysownica.FillEllipse(Brushes.Yellow,
+                  PrzeliczanieWspółrzędnych.WspX(TWS[IndexPOA, 0])-PromieńOA,
+                  PrzeliczanieWspółrzędnych.WspY(TWS[IndexPOA, 1]) - PromieńOA,
+                  2*PromieńOA, 2*PromieńOA
+                );
 
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
+            //sprawdzenie czy obiekt animowany juz doszedl do prawej krawedzi 
+            if (IndexPOA >= MaxIndexPOA)
+                //przestwienie obiektu animowanego na poczatek lini toru
+                IndexPOA = 0;
+            else
+                IndexPOA++;
+            //odswiezenie powierzchni graficznej (ponowne jej odrysownaie)
+            pbRysownica.Refresh();
         }
     }
 }

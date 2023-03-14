@@ -38,6 +38,7 @@
             // 
             // pbRysownica
             // 
+            this.pbRysownica.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pbRysownica.Location = new System.Drawing.Point(155, 169);
             this.pbRysownica.Name = "pbRysownica";
             this.pbRysownica.Size = new System.Drawing.Size(718, 469);
