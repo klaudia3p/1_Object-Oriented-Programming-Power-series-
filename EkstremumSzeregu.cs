@@ -28,11 +28,11 @@ namespace ProjektNr1_Plutka_62026
             float AktualneMax;
             //ustalenie stanu poczatkowego
             AktualneMax = TWS[0, 1];
-            //analiza pozostałych emenetów tablicy tws i ustalenie wartosci minimalnej
+            //analiza pozostałych emenetów tablicy tws i ustalenie wartosci max
             for (int i = 1; i < TWS.GetLength(0); i++)
                 if (AktualneMax < TWS[i, 1])
                     AktualneMax = TWS[i, 1];
-            //zwrotne przekazanie wartosci minimalnej
+            //zwrotne przekazanie wartosci max
             return AktualneMax;
         }
     }
