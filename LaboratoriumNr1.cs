@@ -18,11 +18,15 @@ namespace ProjektNr1_Plutka_62026
         //deklaracja stałych pomocniczych 
         const int Margines = 10;
         const int PromieńOA = 5; //OA= Obiekt Animowany
+        //okreslenei przedzialu zbieznosci szeregu
+        const float DGprzedziałuX = float.MinValue;
+        const float GGprzedziałuX = float.MaxValue;
         //deklaracje pomocnicze
         float Xd, Xg, h;
         Graphics Rysownica;
         int IndexPOA; //POA= Połozenie animacji
         int MaxIndexPOA;
+        int LiczbaPrzedziałówH;
         float[,] TWS;
         Pen PióroXY = new Pen(Color.Blue, 0.5f);
         Pen PióroLiniToru;
@@ -129,6 +133,136 @@ namespace ProjektNr1_Plutka_62026
                 return (int)(y * Sy + Dy);
             }
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {}
+
+        private void label1_Click(object sender, EventArgs e)
+        { }
+
+
+        //deklaracja pomocnicza
+        bool PobierzDaneWejściowe(out float Xd, out float Xg, out float h)
+        {
+            //przypisanie tz wartosci techniacznych parametrom wyjsciowy,
+            Xd = Xg = h = 0.0F;
+            //pobranie Xd
+            if(!float.TryParse(txtXd.Text, out Xd))
+            {
+                //wystapil blad
+                errorProvider1.SetError(txtXd, "ERROR: w zapisie wartości Xd wystąpił niedozwolony znak");
+                return false;   
+            }
+            //jesli bylo ok to musimy sprawdzic zbieznosc szeregu
+            if((Xd<DGprzedziałuX) || (Xd>GGprzedziałuX))
+            {
+                //wystapil blad
+                errorProvider1.SetError(txtXd, "ERROR: podana wartosc Xd wykracza poza przedział zbieżności szeregu");
+                return false;
+            }
+
+            //pobranie Xg
+            if (!float.TryParse(txtXd.Text, out Xg))
+            {
+                //wystapil blad
+                errorProvider1.SetError(txtXd, "ERROR: w zapisie wartości Xg wystąpił niedozwolony znak");
+                return false;
+            }
+            //jesli bylo ok to musimy sprawdzic zbieznosc szeregu
+            if ((Xg < DGprzedziałuX) || (Xg > GGprzedziałuX))
+            {
+                //wystapil blad
+                errorProvider1.SetError(txtXd, "ERROR: podana wartosc Xg wykracza poza przedział zbieżności szeregu");
+                return false;
+            }
+            //sprawdznei tzw warunku wejsciowewgo nakladanego na granice przedzialu zmiennej x
+            if(Xd>Xg)
+            {
+                //wystapil blad
+                errorProvider1.SetError(txtXd, "ERROR: nie jest spełniony warunek nakładany na granicę przedziału zmian wartości zmiennej X: Xd<Xg");
+                return false;
+            }
+            //pobranie przyrostu h 
+            if (!float.TryParse(txtH.Text, out h))
+            {
+                //wystapil blad
+                errorProvider1.SetError(txtXd, "ERROR: w zapisie wartości h wystąpił niedozwolony znak");
+                return false;
+            }
+            //jesli bylo ok to musimy sprawdzic zbieznosc szeregu
+            if ((h < 0.0F) || (h >= 1))
+            {
+                //wystapil blad
+                errorProvider1.SetError(txtXd, "ERROR: podana wartosc h nie spełnia warunku wejsciowego: 0<h<1.0");
+                return false;
+            }
+
+            //zwrot wartosci true , gdy nie wykryto bledy
+            return true;
+        }
+        void TablicowanieSzeregu(float[,] TWS, float Xd, float Xg, float h)
+        {
+            //deklaracje pomocnicze
+            float X;
+            int i; //numer przedzialu
+            //tablicowanie szeregu
+            for (X = Xd, i = 0; i < TWS.GetLength(0); i++) ;
+            {
+                TWS[i, 0] = X;
+                TWS[i, 1] = ObliczenieWartościSzeregu(X);
+
+            }
+
+        }
+
+        float ObliczenieWartościSzeregu(float x)
+        {//deklaracja eps
+            const float Eps = 0.000001F;
+            //deklaracje pomocnicze
+            float w, S;   //Wyraz, Suma szeregu
+            ushort k;
+
+            w = x;
+            k = 0;
+            S = w;
+            //obliczenie sumy szeregu z dokładnościa Eps
+            while (Math.Abs(w)>Eps)
+            {
+                //zwiekszenie licznika wyrazow
+                k++;
+                //obliczenie nowego wyrazu swzeregu ze wzoru iteracyjnego
+                w = w * ((-1.0F) * x * x) / (2 * k + 1);
+                //obliczenie sumy k wyrazów
+                S = S + w;
+            }
+
+
+            //zwrotne przekazanie wyniku oblczen
+            return S;
+        }
+
+        private void btnAnimacja_Click(object sender, EventArgs e)
+        {
+            //pobranie danych wejsciiowych
+            if(!PobierzDaneWejściowe(out Xd, out Xg, out h))
+                return; //nie mozemy dzialac dalej
+                        //obliczenie ilosci przedzialu h, przedzialow(Xg,Xd)
+            LiczbaPrzedziałówH = (int)((Xg - Xd) / h )+ 1;
+            //utworzenie egzemplarza tablicy TWS
+            TWS = new float[LiczbaPrzedziałówH, 2];
+            //stablicowanie szeregu
+            TablicowanieSzeregu(TWS, Xd, Xg, h);
+            //ustalenie poczatkowego polozenia oboektu animowanego
+            IndexPOA = 0;
+            //ustalenie koncowego polozenia oboektu animowanego
+            MaxIndexPOA = TWS.GetLength(0);
+
+            //uaktywnienie zegara
+            timer1.Enabled = true;
+            //ustawienie stanu braku aktywnosci dla przycisku polecen
+            btnAnimacja.Enabled = false;
+        }
+
         private void pbRysownica_Paint(object sender, PaintEventArgs e)
         {
             //dla bezpieczenstwa sprawdzamy czy istnieje egzemplarz tablicy TWS
