@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
+
 using System.Xml.Linq;
 
 namespace ProjektNr1_Plutka_62026
@@ -65,9 +65,9 @@ namespace ProjektNr1_Plutka_62026
 
         private void ProjektIndywidualnyPlutka_Load(object sender, EventArgs e)
         {
-            kppbRysownica.Location = new Point(this.Left + 10, this.Top + 90);
-            kppbRysownica.Width = (int)(this.Width * 0.5F);
-            kppbRysownica.Height = (int)(this.Height * 0.7F);
+            kppbRysownica.Location = new Point(this.Left + 10, this.Top + 80);
+            kppbRysownica.Width = (int)(this.Width * 0.3F);
+            kppbRysownica.Height = (int)(this.Height * 0.5F);
             kpbtnAnimacja.Location = new Point(kppbRysownica.Left + kppbRysownica.Width
                 + kpMargines,
                 kppbRysownica.Top);
@@ -97,25 +97,25 @@ namespace ProjektNr1_Plutka_62026
 
         static class kpPrzeliczanieWspółrzędnych
         {
-            static float Sx, Sy;
-            static float Dx, Dy;
-            static int Xe_min, Xe_max, Ye_min, Ye_max;
-            public static float Xmin
+            static float kpSx, kpSy;
+            static float kpDx, kpDy;
+            static int kpXe_min, kpXe_max, kpYe_min, kpYe_max;
+            public static float kpXmin
             {
                 get;
                 private set;
             }
-            public static float Xmax
+            public static float kpXmax
             {
                 get;
                 private set;
             }
-            public static float Ymin
+            public static float kpYmin
             {
                 get;
                 private set;
             }
-            public static float Ymax
+            public static float kpYmax
             {
                 get;
                 private set;
@@ -123,28 +123,28 @@ namespace ProjektNr1_Plutka_62026
             
             static kpPrzeliczanieWspółrzędnych()
             {
-                Xmin = kpUchwytFormularza.kpXd;
-                Xmax = kpUchwytFormularza.kpXg;
-                Ymin = kpEkstremumIndywidualne.kpMinSx(kpUchwytFormularza.kpTWS);
-                Ymax = kpEkstremumIndywidualne.kpMaxSx(kpUchwytFormularza.kpTWS);
+                kpXmin = kpUchwytFormularza.kpXd;
+                kpXmax = kpUchwytFormularza.kpXg;
+                kpYmin = kpEkstremumIndywidualne.kpMinSx(kpUchwytFormularza.kpTWS);
+                kpYmax = kpEkstremumIndywidualne.kpMaxSx(kpUchwytFormularza.kpTWS);
                 
-                Xe_min = kpMargines;
-                Xe_max = kpUchwytFormularza.kppbRysownica.Width - (kpMargines + kpMargines);
-                Ye_min = kpMargines;
-                Ye_max = kpUchwytFormularza.kppbRysownica.Height - (kpMargines + kpMargines);
+                kpXe_min = kpMargines;
+                kpXe_max = kpUchwytFormularza.kppbRysownica.Width - (kpMargines + kpMargines);
+                kpYe_min = kpMargines;
+                kpYe_max = kpUchwytFormularza.kppbRysownica.Height - (kpMargines + kpMargines);
                
-                Sx = (Xe_max - Xe_min) / (Xmax - Xmin);
-                Sy = (Ye_max - Ye_min) / (Ymax - Ymin);
-                Dx = Xe_min - Xmin * Sx;
-                Dy = Ye_min - Ymin * Sy;
+                kpSx = (kpXe_max - kpXe_min) / (kpXmax - kpXmin);
+                kpSy = (kpYe_max - kpYe_min) / (kpYmax - kpYmin);
+                kpDx = kpXe_min - kpXmin * kpSx;
+                kpDy = kpYe_min - kpYmin * kpSy;
             }
-            public static int WspX(float x)
+            public static int kpWspX(float x)
             {
-                return (int)(Sx * x + Dx);
+                return (int)(kpSx * x + kpDx);
             }
-            static public int WspY(float y)
+            static public int kpWspY(float y)
             {
-                return (int)(Sy * y + Dy);
+                return (int)(kpSy * y + kpDy);
             }
         }
 
@@ -255,31 +255,31 @@ namespace ProjektNr1_Plutka_62026
             kpRysownica.Clear(Color.LightSkyBlue);
 
             kpRysownica.DrawLine(kpPióroXY,
-                kpPrzeliczanieWspółrzędnych.WspX(0),
-                kpPrzeliczanieWspółrzędnych.WspY(kpPrzeliczanieWspółrzędnych.Ymax),
+                kpPrzeliczanieWspółrzędnych.kpWspX(0),
+                kpPrzeliczanieWspółrzędnych.kpWspY(kpPrzeliczanieWspółrzędnych.kpYmax),
 
-                kpPrzeliczanieWspółrzędnych.WspX(0),
-                kpPrzeliczanieWspółrzędnych.WspY(kpPrzeliczanieWspółrzędnych.Ymin));
+                kpPrzeliczanieWspółrzędnych.kpWspX(0),
+                kpPrzeliczanieWspółrzędnych.kpWspY(kpPrzeliczanieWspółrzędnych.kpYmin));
             //wykreslenie osi x
             kpRysownica.DrawLine(kpPióroXY,
-                kpPrzeliczanieWspółrzędnych.WspX(kpPrzeliczanieWspółrzędnych.Xmin),
-                kpPrzeliczanieWspółrzędnych.WspY(0),
+                kpPrzeliczanieWspółrzędnych.kpWspX(kpPrzeliczanieWspółrzędnych.kpXmin),
+                kpPrzeliczanieWspółrzędnych.kpWspY(0),
 
-                 kpPrzeliczanieWspółrzędnych.WspX(kpPrzeliczanieWspółrzędnych.Xmax),
-                 kpPrzeliczanieWspółrzędnych.WspY(0));
+                 kpPrzeliczanieWspółrzędnych.kpWspX(kpPrzeliczanieWspółrzędnych.kpXmax),
+                 kpPrzeliczanieWspółrzędnych.kpWspY(0));
             //wykreslenie lini toru
             for (int j = 0; j < kpTWS.GetLength(0) - 1; j++)
                 kpRysownica.DrawLine(kpPióroLiniToru,
-                    kpPrzeliczanieWspółrzędnych.WspX(kpTWS[j, 0]),
-                    kpPrzeliczanieWspółrzędnych.WspY(kpTWS[j, 1]),
+                    kpPrzeliczanieWspółrzędnych.kpWspX(kpTWS[j, 0]),
+                    kpPrzeliczanieWspółrzędnych.kpWspY(kpTWS[j, 1]),
 
-                    kpPrzeliczanieWspółrzędnych.WspX(kpTWS[j + 1, 0]),
-                    kpPrzeliczanieWspółrzędnych.WspY(kpTWS[j + 1, 1])
+                    kpPrzeliczanieWspółrzędnych.kpWspX(kpTWS[j + 1, 0]),
+                    kpPrzeliczanieWspółrzędnych.kpWspY(kpTWS[j + 1, 1])
                  );
             //wykreslenie OA(Obiektu Animowanego)
             kpRysownica.FillEllipse(Brushes.Yellow,
-                  kpPrzeliczanieWspółrzędnych.WspX(kpTWS[kpIndexPOA, 0]) - kpPromieńOA,
-                  kpPrzeliczanieWspółrzędnych.WspY(kpTWS[kpIndexPOA, 1]) - kpPromieńOA,
+                  kpPrzeliczanieWspółrzędnych.kpWspX(kpTWS[kpIndexPOA, 0]) - kpPromieńOA,
+                  kpPrzeliczanieWspółrzędnych.kpWspY(kpTWS[kpIndexPOA, 1]) - kpPromieńOA,
                   2 * kpPromieńOA, 2 * kpPromieńOA
                 );
 
@@ -292,6 +292,16 @@ namespace ProjektNr1_Plutka_62026
             else
                 kpIndexPOA++;
             kppbRysownica.Refresh();
+        }
+
+        private void kolorTłaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

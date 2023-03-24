@@ -349,5 +349,10 @@ namespace ProjektNr1_Plutka_62026
             //odswiezenie powierzchni graficznej (ponowne jej odrysownaie)
             pbRysownica.Refresh();
         }
+
+        private void pbRysownica_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
