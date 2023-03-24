@@ -22,14 +22,17 @@ namespace ProjektNr1_Plutka_62026
         const float DGprzedziałuX = float.MinValue;
         const float GGprzedziałuX = float.MaxValue;
         //deklaracje pomocnicze
-        float Xd, Xg, h;
+        public float Xd;
+        public float Xg; 
+         float h;
+        int LiczbaPrzedziałówH;
         Graphics Rysownica;
+        Pen PióroXY;
+        Pen PióroLiniToru;
+
         int IndexPOA; //POA= Połozenie animacji
         int MaxIndexPOA;
-        int LiczbaPrzedziałówH;
         float[,] TWS;
-        Pen PióroXY = new Pen(Color.Blue, 0.5f);
-        Pen PióroLiniToru;
         //deklaracja zmiennej referencyjnej egzemplarza formularza
         static LaboratoriumNr1 UchwytFormularza;
 
@@ -37,7 +40,15 @@ namespace ProjektNr1_Plutka_62026
         public LaboratoriumNr1()
         {
             InitializeComponent();
+            this.Location = new Point(Screen.PrimaryScreen.Bounds.Left + Margines,
+                Screen.PrimaryScreen.Bounds.Top + Margines);
+            this.Width = (int)(Screen.PrimaryScreen.Bounds.Width *0.85F);
+            this.Height = (int)(Screen.PrimaryScreen.Bounds.Height * 0.7F);
+            this.StartPosition = FormStartPosition.Manual;
             UchwytFormularza = this;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+
             //wstępna sformatowanie kontrolki picture box
             pbRysownica.BackColor = Color.LightSkyBlue;
             pbRysownica.BorderStyle = BorderStyle.Fixed3D;
@@ -45,8 +56,16 @@ namespace ProjektNr1_Plutka_62026
             pbRysownica.Image = new Bitmap(pbRysownica.Width, pbRysownica.Height);
                 //utworzenie egzemplarza powierzchni graficznej
             Rysownica = Graphics.FromImage(pbRysownica.Image);
+
+            PióroXY = new Pen(Color.Blue, 0.5F);
+            PióroXY.StartCap = LineCap.Flat;
+            PióroXY.EndCap = LineCap.ArrowAnchor;
+            AdjustableArrowCap dużeGrotyStrzałek = new AdjustableArrowCap(3, 5);
+            PióroXY.StartCap = LineCap.Square;
+            PióroXY.CustomEndCap = dużeGrotyStrzałek;
+
             //utworzenie i sformatowanie pióraPióroLiniToru
-            PióroLiniToru = new Pen(Color.Black, 1);
+            PióroLiniToru = new Pen(Color.Black, 1.5F);
             PióroLiniToru.DashStyle = DashStyle.Dot;
 
         }
@@ -75,7 +94,7 @@ namespace ProjektNr1_Plutka_62026
         }
 
         //deklaracja klasy statycznej udistepniajacej  metody WspX, WspY
-        static public class PrzeliczanieWspółrzędnych
+        static class PrzeliczanieWspółrzędnych
         {
             //deklaracja zmiennych dla przechowania wyznaczonych wartosci współczynników w skali dla osi X oraz Y
             //a takze wektory przesuniecia wzdłuz osi X oraz osi Y
@@ -118,19 +137,19 @@ namespace ProjektNr1_Plutka_62026
                 Ye_min = Margines;
                 Ye_max = UchwytFormularza.pbRysownica.Height - (Margines + Margines);
                 //wyznaczenie wspolczynnikow w skali po osi X oraz osi Y
-                Sx = (Xe_max- Xe_min)/(Xmax- Xmin);
-                Sy = (Ye_max-Ye_min)/(Ymax- Ymin);
+                Sx = (Xe_max - Xe_min)/(Xmax- Xmin);
+                Sy = (Ye_max - Ye_min)/(Ymax- Ymin);
                 Dx = Xe_min - Xmin * Sx;
                 Dy = Ye_min - Ymin * Sy;
             }
             //deklaracja metod udostepniajacych klase przelicznaiewpsolrzednycj
             public static int WspX(float x)
             {
-                return (int)(x * Sx + Dx);
+                return (int)(Sx*x + Dx);
             }
             static public int WspY(float y)
             {
-                return (int)(y * Sy + Dy);
+                return (int)(Sy*y + Dy);
             }
         }
 
@@ -162,38 +181,38 @@ namespace ProjektNr1_Plutka_62026
             }
 
             //pobranie Xg
-            if (!float.TryParse(txtXd.Text, out Xg))
+            if (!float.TryParse(txtXg.Text, out Xg))
             {
                 //wystapil blad
-                errorProvider1.SetError(txtXd, "ERROR: w zapisie wartości Xg wystąpił niedozwolony znak");
+                errorProvider1.SetError(txtXg, "ERROR: w zapisie wartości Xg wystąpił niedozwolony znak");
                 return false;
             }
             //jesli bylo ok to musimy sprawdzic zbieznosc szeregu
             if ((Xg < DGprzedziałuX) || (Xg > GGprzedziałuX))
             {
                 //wystapil blad
-                errorProvider1.SetError(txtXd, "ERROR: podana wartosc Xg wykracza poza przedział zbieżności szeregu");
+                errorProvider1.SetError(txtXg, "ERROR: podana wartosc Xg wykracza poza przedział zbieżności szeregu");
                 return false;
             }
             //sprawdznei tzw warunku wejsciowewgo nakladanego na granice przedzialu zmiennej x
             if(Xd>Xg)
             {
                 //wystapil blad
-                errorProvider1.SetError(txtXd, "ERROR: nie jest spełniony warunek nakładany na granicę przedziału zmian wartości zmiennej X: Xd<Xg");
+                errorProvider1.SetError(txtXg, "ERROR: nie jest spełniony warunek nakładany na granicę przedziału zmian wartości zmiennej X: Xd<Xg");
                 return false;
             }
             //pobranie przyrostu h 
             if (!float.TryParse(txtH.Text, out h))
             {
                 //wystapil blad
-                errorProvider1.SetError(txtXd, "ERROR: w zapisie wartości h wystąpił niedozwolony znak");
+                errorProvider1.SetError(txtH, "ERROR: w zapisie wartości h wystąpił niedozwolony znak");
                 return false;
             }
             //jesli bylo ok to musimy sprawdzic zbieznosc szeregu
-            if ((h < 0.0F) || (h >= 1))
+            if ((h <= 0.0F) || (h >= 1.0F))
             {
                 //wystapil blad
-                errorProvider1.SetError(txtXd, "ERROR: podana wartosc h nie spełnia warunku wejsciowego: 0<h<1.0");
+                errorProvider1.SetError(txtH, "ERROR: podana wartosc h nie spełnia warunku wejsciowego: 0<h<1.0");
                 return false;
             }
 
@@ -206,13 +225,13 @@ namespace ProjektNr1_Plutka_62026
             float X;
             int i; //numer przedzialu
             //tablicowanie szeregu
-            for (X = Xd, i = 0; i < TWS.GetLength(0); i++) ;
+            for (X = Xd, i = 0; i < TWS.GetLength(0);  X = Xd + i * h, i++)
             {
                 TWS[i, 0] = X;
                 TWS[i, 1] = ObliczenieWartościSzeregu(X);
 
             }
-
+           
         }
 
         float ObliczenieWartościSzeregu(float x)
@@ -220,9 +239,9 @@ namespace ProjektNr1_Plutka_62026
             const float Eps = 0.000001F;
             //deklaracje pomocnicze
             float w, S;   //Wyraz, Suma szeregu
-            ushort k;
+            int k;
 
-            w = x;
+            w = 1;
             k = 0;
             S = w;
             //obliczenie sumy szeregu z dokładnościa Eps
@@ -231,7 +250,7 @@ namespace ProjektNr1_Plutka_62026
                 //zwiekszenie licznika wyrazow
                 k++;
                 //obliczenie nowego wyrazu swzeregu ze wzoru iteracyjnego
-                w = w * ((-1.0F) * x * x) / (2 * k + 1);
+                w = w * ((-1.0F) * x * x) / (float)(2 * k*(2* k + 1));
                 //obliczenie sumy k wyrazów
                 S = S + w;
             }
@@ -243,9 +262,13 @@ namespace ProjektNr1_Plutka_62026
 
         private void btnAnimacja_Click(object sender, EventArgs e)
         {
+            errorProvider1.Dispose();
             //pobranie danych wejsciiowych
-            if(!PobierzDaneWejściowe(out Xd, out Xg, out h))
+            if (!PobierzDaneWejściowe(out Xd, out Xg, out h))
+            {
+                errorProvider1.SetError(txtXd, "ERROR: wystąpił niedozwolony znak");
                 return; //nie mozemy dzialac dalej
+            }
                         //obliczenie ilosci przedzialu h, przedzialow(Xg,Xd)
             LiczbaPrzedziałówH = (int)((Xg - Xd) / h )+ 1;
             //utworzenie egzemplarza tablicy TWS
@@ -255,12 +278,23 @@ namespace ProjektNr1_Plutka_62026
             //ustalenie poczatkowego polozenia oboektu animowanego
             IndexPOA = 0;
             //ustalenie koncowego polozenia oboektu animowanego
-            MaxIndexPOA = TWS.GetLength(0);
+            MaxIndexPOA = TWS.GetLength(0)-1;
 
             //uaktywnienie zegara
             timer1.Enabled = true;
             //ustawienie stanu braku aktywnosci dla przycisku polecen
             btnAnimacja.Enabled = false;
+        }
+
+        private void LaboratoriumNr1_Load(object sender, EventArgs e)
+        {
+            //lokalizacja i zwymiarowanie kontrolki picture boz
+            pbRysownica.Location = new Point(this.Left +10, this.Top +90);
+            pbRysownica.Width = (int)(this.Width * 0.5F);
+            pbRysownica.Height = (int)(this.Height * 0.7F);
+            //lokalizacja pryzcisku btnAnimacja
+            btnAnimacja.Location = new Point(pbRysownica.Left + pbRysownica.Width + Margines,
+                pbRysownica.Top);
         }
 
         private void pbRysownica_Paint(object sender, PaintEventArgs e)
@@ -272,15 +306,16 @@ namespace ProjektNr1_Plutka_62026
             Rysownica.Clear(Color.LightSkyBlue);
             //ponowne wykreslenie obrazu
             //wykreslenie osi y
+
             Rysownica.DrawLine(PióroXY,
                 PrzeliczanieWspółrzędnych.WspX(0),
-                PrzeliczanieWspółrzędnych.WspY(PrzeliczanieWspółrzędnych.Ymin),
+                PrzeliczanieWspółrzędnych.WspY(PrzeliczanieWspółrzędnych.Ymax),
 
                  PrzeliczanieWspółrzędnych.WspX(0),
-                PrzeliczanieWspółrzędnych.WspY(PrzeliczanieWspółrzędnych.Ymax));
+                PrzeliczanieWspółrzędnych.WspY(PrzeliczanieWspółrzędnych.Ymin));
             //wykreslenie osi x
             Rysownica.DrawLine(PióroXY,
-                PrzeliczanieWspółrzędnych.WspY(PrzeliczanieWspółrzędnych.Xmin),
+                PrzeliczanieWspółrzędnych.WspX(PrzeliczanieWspółrzędnych.Xmin),
                  PrzeliczanieWspółrzędnych.WspY(0),
 
                  PrzeliczanieWspółrzędnych.WspX(PrzeliczanieWspółrzędnych.Xmax),
@@ -296,9 +331,9 @@ namespace ProjektNr1_Plutka_62026
                  );
             //wykreslenie OA(Obiektu Animowanego)
             Rysownica.FillEllipse(Brushes.Yellow,
-                  PrzeliczanieWspółrzędnych.WspX(TWS[IndexPOA, 0])-PromieńOA,
-                  PrzeliczanieWspółrzędnych.WspY(TWS[IndexPOA, 1]) - PromieńOA,
-                  2*PromieńOA, 2*PromieńOA
+                  PrzeliczanieWspółrzędnych.WspX(TWS[IndexPOA, 0])- PromieńOA,
+                  PrzeliczanieWspółrzędnych.WspY(TWS[IndexPOA, 1])- PromieńOA,
+                  2*PromieńOA, 2 * PromieńOA
                 );
 
         }

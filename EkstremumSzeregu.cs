@@ -16,9 +16,9 @@ namespace ProjektNr1_Plutka_62026
             //ustalenie stanu poczatkowego
             AktualneMin = TWS[0,1];
             //analiza pozostałych emenetów tablicy tws i ustalenie wartosci minimalnej
-            for (int i = 1; i < TWS.GetLength(0); i++)
+            for (int i = 0; i < TWS.GetLength(0); i++)
                 if(AktualneMin > TWS[i,1])
-                    AktualneMin -= TWS[i,1];
+                    AktualneMin = TWS[i,1];
             //zwrotne przekazanie wartosci minimalnej
             return AktualneMin;
         }
@@ -29,7 +29,7 @@ namespace ProjektNr1_Plutka_62026
             //ustalenie stanu poczatkowego
             AktualneMax = TWS[0, 1];
             //analiza pozostałych emenetów tablicy tws i ustalenie wartosci max
-            for (int i = 1; i < TWS.GetLength(0); i++)
+            for (int i = 0; i < TWS.GetLength(0); i++)
                 if (AktualneMax < TWS[i, 1])
                     AktualneMax = TWS[i, 1];
             //zwrotne przekazanie wartosci max

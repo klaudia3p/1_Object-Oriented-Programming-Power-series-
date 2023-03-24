@@ -48,7 +48,7 @@
             this.pbRysownica.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pbRysownica.Location = new System.Drawing.Point(36, 144);
             this.pbRysownica.Name = "pbRysownica";
-            this.pbRysownica.Size = new System.Drawing.Size(809, 506);
+            this.pbRysownica.Size = new System.Drawing.Size(752, 506);
             this.pbRysownica.TabIndex = 0;
             this.pbRysownica.TabStop = false;
             this.pbRysownica.Paint += new System.Windows.Forms.PaintEventHandler(this.pbRysownica_Paint);
@@ -117,7 +117,7 @@
             // btnAnimacja
             // 
             this.btnAnimacja.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnAnimacja.Location = new System.Drawing.Point(892, 96);
+            this.btnAnimacja.Location = new System.Drawing.Point(825, 93);
             this.btnAnimacja.Name = "btnAnimacja";
             this.btnAnimacja.Size = new System.Drawing.Size(213, 74);
             this.btnAnimacja.TabIndex = 7;
@@ -129,7 +129,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1151, 746);
+            this.ClientSize = new System.Drawing.Size(1089, 746);
             this.Controls.Add(this.btnAnimacja);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtH);
@@ -141,6 +141,7 @@
             this.Name = "LaboratoriumNr1";
             this.Text = "LaboratoriumNr1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LaboratoriumNr1_FormClosing);
+            this.Load += new System.EventHandler(this.LaboratoriumNr1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbRysownica)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
