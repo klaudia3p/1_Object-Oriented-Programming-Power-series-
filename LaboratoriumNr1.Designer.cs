@@ -118,7 +118,7 @@
             // btnAnimacja
             // 
             this.btnAnimacja.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnAnimacja.Location = new System.Drawing.Point(847, 340);
+            this.btnAnimacja.Location = new System.Drawing.Point(794, 170);
             this.btnAnimacja.Name = "btnAnimacja";
             this.btnAnimacja.Size = new System.Drawing.Size(213, 74);
             this.btnAnimacja.TabIndex = 7;
