@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EkstremumIndywidualne.cs" />
     <Compile Include="EkstremumSzeregu.cs" />
     <Compile Include="KokpitPlutka.cs">
       <SubType>Form</SubType>
@@ -72,6 +73,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LaboratoriumNr1.resx">
       <DependentUpon>LaboratoriumNr1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjektIndywidualnyPlutka.resx">
+      <DependentUpon>ProjektIndywidualnyPlutka.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
