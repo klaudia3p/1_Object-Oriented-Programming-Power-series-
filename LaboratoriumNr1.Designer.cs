@@ -39,8 +39,24 @@
             this.txtH = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnAnimacja = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.kpstylLiniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kpliniaKreskowaDashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kpliniaKreskowoKropkowaDashDotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kpliniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kpliniaKropkowaDotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kpciagłaSolidToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kpgrubośćLiniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kptoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kptoolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kptoolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kptoolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kptoolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kpkolorLiniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kpkoloryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbRysownica)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pbRysownica
@@ -126,6 +142,128 @@
             this.btnAnimacja.UseVisualStyleBackColor = true;
             this.btnAnimacja.Click += new System.EventHandler(this.btnAnimacja_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kpstylLiniToolStripMenuItem,
+            this.kpgrubośćLiniToolStripMenuItem,
+            this.kpkolorLiniToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1089, 24);
+            this.menuStrip1.TabIndex = 9;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // kpstylLiniToolStripMenuItem
+            // 
+            this.kpstylLiniToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kpliniaKreskowaDashToolStripMenuItem,
+            this.kpliniaKreskowoKropkowaDashDotToolStripMenuItem,
+            this.kpliniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem,
+            this.kpliniaKropkowaDotToolStripMenuItem,
+            this.kpciagłaSolidToolStripMenuItem});
+            this.kpstylLiniToolStripMenuItem.Name = "kpstylLiniToolStripMenuItem";
+            this.kpstylLiniToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.kpstylLiniToolStripMenuItem.Text = "Styl lini";
+            // 
+            // kpliniaKreskowaDashToolStripMenuItem
+            // 
+            this.kpliniaKreskowaDashToolStripMenuItem.Name = "kpliniaKreskowaDashToolStripMenuItem";
+            this.kpliniaKreskowaDashToolStripMenuItem.Size = new System.Drawing.Size(328, 22);
+            this.kpliniaKreskowaDashToolStripMenuItem.Text = "Linia kreskowa(Dash)";
+            this.kpliniaKreskowaDashToolStripMenuItem.Click += new System.EventHandler(this.liniaKreskowaDashToolStripMenuItem_Click);
+            // 
+            // kpliniaKreskowoKropkowaDashDotToolStripMenuItem
+            // 
+            this.kpliniaKreskowoKropkowaDashDotToolStripMenuItem.Name = "kpliniaKreskowoKropkowaDashDotToolStripMenuItem";
+            this.kpliniaKreskowoKropkowaDashDotToolStripMenuItem.Size = new System.Drawing.Size(328, 22);
+            this.kpliniaKreskowoKropkowaDashDotToolStripMenuItem.Text = "Linia kreskowoKropkowa(DashDot)";
+            this.kpliniaKreskowoKropkowaDashDotToolStripMenuItem.Click += new System.EventHandler(this.liniaKreskowoKropkowaDashDotToolStripMenuItem_Click);
+            // 
+            // kpliniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem
+            // 
+            this.kpliniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem.Name = "kpliniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem";
+            this.kpliniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem.Size = new System.Drawing.Size(328, 22);
+            this.kpliniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem.Text = "LiniaKreskowoKropkowaKropkowa(DashDotDot)";
+            this.kpliniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem.Click += new System.EventHandler(this.liniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem_Click);
+            // 
+            // kpliniaKropkowaDotToolStripMenuItem
+            // 
+            this.kpliniaKropkowaDotToolStripMenuItem.Name = "kpliniaKropkowaDotToolStripMenuItem";
+            this.kpliniaKropkowaDotToolStripMenuItem.Size = new System.Drawing.Size(328, 22);
+            this.kpliniaKropkowaDotToolStripMenuItem.Text = "LiniaKropkowa(Dot)";
+            this.kpliniaKropkowaDotToolStripMenuItem.Click += new System.EventHandler(this.liniaKropkowaDotToolStripMenuItem_Click);
+            // 
+            // kpciagłaSolidToolStripMenuItem
+            // 
+            this.kpciagłaSolidToolStripMenuItem.Name = "kpciagłaSolidToolStripMenuItem";
+            this.kpciagłaSolidToolStripMenuItem.Size = new System.Drawing.Size(328, 22);
+            this.kpciagłaSolidToolStripMenuItem.Text = "Ciagła(Solid)";
+            this.kpciagłaSolidToolStripMenuItem.Click += new System.EventHandler(this.ciagłaSolidToolStripMenuItem_Click);
+            // 
+            // kpgrubośćLiniToolStripMenuItem
+            // 
+            this.kpgrubośćLiniToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kptoolStripMenuItem2,
+            this.kptoolStripMenuItem3,
+            this.kptoolStripMenuItem4,
+            this.kptoolStripMenuItem5,
+            this.kptoolStripMenuItem6});
+            this.kpgrubośćLiniToolStripMenuItem.Name = "kpgrubośćLiniToolStripMenuItem";
+            this.kpgrubośćLiniToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
+            this.kpgrubośćLiniToolStripMenuItem.Text = "Grubość lini";
+            this.kpgrubośćLiniToolStripMenuItem.Click += new System.EventHandler(this.grubośćLiniToolStripMenuItem_Click);
+            // 
+            // kptoolStripMenuItem2
+            // 
+            this.kptoolStripMenuItem2.Name = "kptoolStripMenuItem2";
+            this.kptoolStripMenuItem2.Size = new System.Drawing.Size(80, 22);
+            this.kptoolStripMenuItem2.Text = "1";
+            this.kptoolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // kptoolStripMenuItem3
+            // 
+            this.kptoolStripMenuItem3.Name = "kptoolStripMenuItem3";
+            this.kptoolStripMenuItem3.Size = new System.Drawing.Size(80, 22);
+            this.kptoolStripMenuItem3.Text = "2";
+            this.kptoolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // kptoolStripMenuItem4
+            // 
+            this.kptoolStripMenuItem4.Name = "kptoolStripMenuItem4";
+            this.kptoolStripMenuItem4.Size = new System.Drawing.Size(80, 22);
+            this.kptoolStripMenuItem4.Text = "3";
+            this.kptoolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // kptoolStripMenuItem5
+            // 
+            this.kptoolStripMenuItem5.Name = "kptoolStripMenuItem5";
+            this.kptoolStripMenuItem5.Size = new System.Drawing.Size(80, 22);
+            this.kptoolStripMenuItem5.Text = "4";
+            this.kptoolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            // 
+            // kptoolStripMenuItem6
+            // 
+            this.kptoolStripMenuItem6.Name = "kptoolStripMenuItem6";
+            this.kptoolStripMenuItem6.Size = new System.Drawing.Size(80, 22);
+            this.kptoolStripMenuItem6.Text = "5";
+            this.kptoolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
+            // 
+            // kpkolorLiniToolStripMenuItem
+            // 
+            this.kpkolorLiniToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kpkoloryToolStripMenuItem});
+            this.kpkolorLiniToolStripMenuItem.Name = "kpkolorLiniToolStripMenuItem";
+            this.kpkolorLiniToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.kpkolorLiniToolStripMenuItem.Text = "Kolor Lini";
+            // 
+            // kpkoloryToolStripMenuItem
+            // 
+            this.kpkoloryToolStripMenuItem.Name = "kpkoloryToolStripMenuItem";
+            this.kpkoloryToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.kpkoloryToolStripMenuItem.Text = "Kolory";
+            this.kpkoloryToolStripMenuItem.Click += new System.EventHandler(this.koloryToolStripMenuItem_Click);
+            // 
             // LaboratoriumNr1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -139,12 +277,16 @@
             this.Controls.Add(this.txtXd);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pbRysownica);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "LaboratoriumNr1";
             this.Text = "LaboratoriumNr1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LaboratoriumNr1_FormClosing);
             this.Load += new System.EventHandler(this.LaboratoriumNr1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbRysownica)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,5 +304,20 @@
         private System.Windows.Forms.TextBox txtH;
         private System.Windows.Forms.TextBox txtXg;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem kpstylLiniToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kpgrubośćLiniToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kptoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem kptoolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem kptoolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem kptoolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem kptoolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem kpkolorLiniToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kpkoloryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kpliniaKreskowaDashToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kpliniaKreskowoKropkowaDashDotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kpliniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kpliniaKropkowaDotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kpciagłaSolidToolStripMenuItem;
     }
 }

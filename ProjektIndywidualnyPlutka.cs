@@ -212,7 +212,7 @@ namespace ProjektNr1_Plutka_62026
                 //zwiekszenie licznika wyrazow
                 k++;
                 //obliczenie nowego wyrazu swzeregu ze wzoru iteracyjnego
-                kpw = kpw * ((-1.0F) * kpx * kpx) / (float)(2 * k * (2 * k + 1));
+                kpw = kpw * (1*kpx/(5*(5*k)));
                 //obliczenie sumy k wyrazów
                 kpS = kpS + kpw;
 
@@ -281,6 +281,94 @@ namespace ProjektNr1_Plutka_62026
             else
                 kpIndexPOA++;
             kppbRysownica.Refresh();
+        }
+
+        private void kpbtnReset_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void kpbtnWizualizacjaTabelaryczna_Click(object sender, EventArgs e)
+        {
+
+        }
+        void kpWpisanieWynikówDoKontrolkiDataGrindView(float[,] TWS, DataGridView kpdgvTWS)
+        {
+        }
+
+        private void kppbRysownica_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dashToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            kpPióroLiniToru.DashStyle = DashStyle.Solid;
+        }
+
+        private void dotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            kpPióroLiniToru.DashStyle = DashStyle.Dot;
+        }
+
+        private void solidToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            kpPióroLiniToru.DashStyle = DashStyle.Solid;
+        }
+
+        private void kolorFormularzaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog PaletaKolorów = new ColorDialog();
+            PaletaKolorów.Color = this.BackColor;
+            if (PaletaKolorów.ShowDialog() == DialogResult.OK)
+                this.BackColor = PaletaKolorów.Color;
+            PaletaKolorów.Dispose();
+        }
+
+        private void kolorLiniToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog PaletaKolorow = new ColorDialog();
+            if (PaletaKolorow.ShowDialog() == DialogResult.OK)
+            {
+                kpPióroLiniToru.Color = PaletaKolorow.Color;
+
+            }
+        }
+
+        private void kolorRysownicyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog PaletaKolorow = new ColorDialog();
+            if (PaletaKolorow.ShowDialog() == DialogResult.OK)
+            {
+                kppbRysownica.BackColor = PaletaKolorow.Color;
+
+            }
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            kpPióroLiniToru.Width = 1;
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            kpPióroLiniToru.Width = 2;
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            kpPióroLiniToru.Width = 3;
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            kpPióroLiniToru.Width = 4;
+        }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            kpPióroLiniToru.Width = 5;
         }
     }
 }

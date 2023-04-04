@@ -10,6 +10,9 @@ using System.Windows.Forms;
 //dodanie nowej przestreni nazw dla grafiki 2D
 using System.Drawing.Drawing2D;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace ProjektNr1_Plutka_62026
 {
@@ -73,7 +76,8 @@ namespace ProjektNr1_Plutka_62026
         private void LaboratoriumNr1_FormClosing(object sender, FormClosingEventArgs e)
         {
             //utworzenie okna dialogowego dla uzytkownika
-            DialogResult OknoMessage = MessageBox.Show("Czy rzeczywiście chcesz zamknąć formularz laboratoryjny?",
+            DialogResult OknoMessage = MessageBox.Show("Samoocena Sprawdzianu Nr1 = 4.0, gdyż zostały zrealizowane 3/4 zadania \n\t" +
+                "Autor programu: Klaudia Plutka 62026",
                 this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             //sprawdzenie decyzji uzywtkownika
             if (OknoMessage == DialogResult.Yes)
@@ -225,7 +229,7 @@ namespace ProjektNr1_Plutka_62026
             float X;
             int i; //numer przedzialu
             //tablicowanie szeregu
-            for (X = Xd, i = 0; i < TWS.GetLength(0);  X = Xd + i * h, i++)
+            for (X = Xd, i = 0; i < TWS.GetLength(0);  X =  Xd + i * h, i++)
             {
                 TWS[i, 0] = X;
                 TWS[i, 1] = ObliczenieWartościSzeregu(X);
@@ -352,7 +356,121 @@ namespace ProjektNr1_Plutka_62026
 
         private void pbRysownica_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        private void btnWykres_Click(object sender, EventArgs e)
+        {
+            errorProvider1.Dispose();
+            //pobranie danych wejsciiowych
+            if (!PobierzDaneWejściowe(out Xd, out Xg, out h))
+            {
+                errorProvider1.SetError(txtXd, "ERROR: wystąpił niedozwolony znak");
+                return; //nie mozemy dzialac dalej
+            }
+            //obliczenie ilosci przedzialu h, przedzialow(Xg,Xd)
+            LiczbaPrzedziałówH = (int)((Xg - Xd) / h) + 1;
+            //utworzenie egzemplarza tablicy TWS
+            TWS = new float[LiczbaPrzedziałówH, 2];
+            //stablicowanie szeregu
+            TablicowanieSzeregu(TWS, Xd, Xg, h);
+
+            if (TWS is null)
+                return;
+            //wyczyszczenie powiezrchni graficznej
+            Rysownica.Clear(Color.LightSkyBlue);
+            //ponowne wykreslenie obrazu
+            //wykreslenie osi y
+
+            Rysownica.DrawLine(PióroXY,
+                PrzeliczanieWspółrzędnych.WspX(0),
+                PrzeliczanieWspółrzędnych.WspY(PrzeliczanieWspółrzędnych.Ymax),
+
+                 PrzeliczanieWspółrzędnych.WspX(0),
+                PrzeliczanieWspółrzędnych.WspY(PrzeliczanieWspółrzędnych.Ymin));
+            //wykreslenie osi x
+            Rysownica.DrawLine(PióroXY,
+                PrzeliczanieWspółrzędnych.WspX(PrzeliczanieWspółrzędnych.Xmin),
+                 PrzeliczanieWspółrzędnych.WspY(0),
+
+                 PrzeliczanieWspółrzędnych.WspX(PrzeliczanieWspółrzędnych.Xmax),
+                 PrzeliczanieWspółrzędnych.WspY(0));
+            //wykreslenie lini toru
+            for (int j = 0; j < TWS.GetLength(0) - 1; j++)
+                Rysownica.DrawLine(PióroLiniToru,
+                    PrzeliczanieWspółrzędnych.WspX(TWS[j, 0]),
+                    PrzeliczanieWspółrzędnych.WspY(TWS[j, 1]),
+
+                    PrzeliczanieWspółrzędnych.WspX(TWS[j + 1, 0]),
+                    PrzeliczanieWspółrzędnych.WspY(TWS[j + 1, 1])
+                 );
+
+        }
+
+        private void koloryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog PaletaKolorow = new ColorDialog();
+            if (PaletaKolorow.ShowDialog() == DialogResult.OK)
+            {
+                PióroLiniToru.Color = PaletaKolorow.Color;
+               
+            }
+
+        }
+
+        private void grubośćLiniToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            PióroLiniToru.Width = 1;
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            PióroLiniToru.Width = 2;
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            PióroLiniToru.Width = 3;
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            PióroLiniToru.Width = 4;
+        }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            PióroLiniToru.Width = 5;
+        }
+
+        private void liniaKreskowaDashToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PióroLiniToru.DashStyle = DashStyle.Dash;
+        }
+
+        private void liniaKropkowaDotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PióroLiniToru.DashStyle = DashStyle.Dot;
+        }
+
+        private void liniaKreskowoKropkowaDashDotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PióroLiniToru.DashStyle = DashStyle.DashDot;
+        }
+
+        private void liniaKreskowoKropkowaKropkowaDashDotDotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PióroLiniToru.DashStyle = DashStyle.DashDotDot;
+        }
+
+        private void ciagłaSolidToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PióroLiniToru.DashStyle = DashStyle.Solid;
         }
     }
 }
